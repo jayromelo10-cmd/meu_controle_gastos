@@ -49,6 +49,8 @@ def deletar_Gastos(i):
 
 
 # FUNÇÕES PARA VER DADOS--------------------------------------------------------
+
+# ver categoria
 def ver_categoria():
     lista_itens = []
 
@@ -58,7 +60,34 @@ def ver_categoria():
         linha = cur.fetchall()
         for i in linha:
             lista_itens.append(i)
-    print(ver_categoria())
+
+    return lista_itens
+
+
+# ver receitas
+def ver_receitas():
+    lista_itens = []
+
+    with conec:
+        cur = conec.cursor()
+        cur.execute("SELECT * FROM Receitas")
+        linha = cur.fetchall()
+        for i in linha:
+            lista_itens.append(i)
+    
+    return lista_itens
+
+
+# ver gastos
+def ver_gastos():
+    lista_itens = []
+
+    with conec:
+        cur = conec.cursor()
+        cur.execute("SELECT * FROM Gastos")
+        linha = cur.fetchall()
+        for i in linha:
+            lista_itens.append(i)
     
     return lista_itens
 
