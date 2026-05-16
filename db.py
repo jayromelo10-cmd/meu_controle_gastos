@@ -13,11 +13,11 @@ with conec:
 # CRIANDO TABELA DE RECEITA
 with conec:
     cur = conec.cursor()
-    cur.execute("CREATE TABLE receita(id INTEGER PRIMARY KEY AUTOINCREMENT, categoria TEXT, adicionado_em DATE, valor DECIMAL)")
+    cur.execute("CREATE TABLE Receitas(id INTEGER PRIMARY KEY AUTOINCREMENT, categoria TEXT, adicionado_em DATE, valor DECIMAL)")
 
 
 # CRIANDO TABELA DE GASTOS
 with conec:
     cur = conec.cursor()
-    cur.execute("CREATE TABLE gastos(id INTEGER PRIMARY KEY AUTOINCREMENT, categoria TEXT, retirado_em DATE, valor DECIMAL)")
+    cur.execute("CREATE TABLE Gastos(id INTEGER PRIMARY KEY AUTOINCREMENT, categoria TEXT, retirado_em DATE, valor DECIMAL)")
 
