@@ -88,6 +88,8 @@ def grafico_barra():
     ax = figura.add_subplot(111)
     #ax.autoscale(enable=True, axis='both', tight=None)
 
+    colors = [cor01, cor02, cor03, cor04]
+
     ax.bar(lista_categorias, lista_valores,  color=colors, width=0.9)
     #create a list to collect the plt.patches data
 
