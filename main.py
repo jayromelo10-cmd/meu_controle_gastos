@@ -24,7 +24,8 @@ cor07 = "#cc0000" # vermelho
 cor08 = "#fccf47" # amarelo
 cor09 = "#472b23" # marron
 cor10 = "#003366" # azul escuro
-cor11 = "#b2c1d1" # azul claro
+cor11 = "#b2c1d1" # cinza escuro
+cor12 = "#6D6B6B" # cinza
 
 # criando janela-------------------------------------------------------------------------
 janela = Tk()
@@ -40,10 +41,10 @@ style.theme_use("clam")
 frame_em_cima = Frame(janela, width=1043, height=50, bg=cor11, relief="flat")
 frame_em_cima.grid(row=0, column=0)
 
-frame_esquerdo = Frame(janela, width=1043, height=361, bg=cor06, pady=20, relief="raised")
+frame_esquerdo = Frame(janela, width=1043, height=361, bg=cor05, pady=20, relief="raised")
 frame_esquerdo.grid(row=1, column=0, pady=1, padx=0, sticky=NSEW)
 
-frame_direito = Frame(janela, width=1043, height=300, bg=cor06, relief="flat")
+frame_direito = Frame(janela, width=1043, height=300, bg=cor05, relief="flat")
 frame_direito.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
 
 
@@ -74,7 +75,7 @@ def porcentagem():
 
     valor = 50
     
-    porcentagem01 = Label(frame_esquerdo, text="{:,.2f}%" .format(valor), anchor=NW, font=("verdana 12"), bg=cor06, fg=cor04)
+    porcentagem01 = Label(frame_esquerdo, text="{:,.2f}%" .format(valor), anchor=NW, font=("verdana 11"), bg=cor05, fg=cor04)
     porcentagem01.place(x=200, y=35)
 
 
@@ -88,7 +89,7 @@ def grafico_barra():
     ax = figura.add_subplot(111)
     #ax.autoscale(enable=True, axis='both', tight=None)
 
-    colors = [cor01, cor02, cor03, cor04]
+    colors = [cor03, cor07, cor08, cor04]
 
     ax.bar(lista_categorias, lista_valores,  color=colors, width=0.9)
     #create a list to collect the plt.patches data
@@ -122,10 +123,34 @@ def grafico_barra():
     canva = FigureCanvasTkAgg(figura, frame_esquerdo)
     canva.get_tk_widget().place(x=10, y=70)
 
+# função de resumos totais
+def resumos():
+    valor = [4000, 3200, 800]
 
+    prim_linha = Label(frame_esquerdo, text="", width=215, height=1, anchor=NW, font=("Arial 1"), bg=cor12)
+    prim_linha.place(x=309, y=50)
+    total_renda = Label(frame_esquerdo, text=" Total Renda Mensal            ".upper(), anchor=NW, font=("Verdana 10"), bg=cor05, fg=cor02)
+    total_renda.place(x=309, y=35)
+    prim_valor = Label(frame_esquerdo, text="R$ {:,.2f}".format(valor[0]), anchor=NW, font=("Arial 17"), bg=cor05, fg=cor12)
+    prim_valor.place(x=309, y=70)
+
+    seg_linha = Label(frame_esquerdo, text="", width=215, height=1, anchor=NW, font=("Arial 1"), bg=cor12)
+    seg_linha.place(x=309, y=132)
+    total_renda = Label(frame_esquerdo, text=" Total Despesas Mensais       ".upper(), anchor=NW, font=("Verdana 11"), bg=cor05, fg=cor02)
+    total_renda.place(x=309, y=115)
+    seg_valor = Label(frame_esquerdo, text="R$ {:,.2f}".format(valor[1]), anchor=NW, font=("Arial 17"), bg=cor05, fg=cor12)
+    seg_valor.place(x=309, y=150)
+
+    terc_linha = Label(frame_esquerdo, text="", width=215, height=1, anchor=NW, font=("Arial 1"), bg=cor12)
+    terc_linha.place(x=309, y=207)
+    total_renda = Label(frame_esquerdo, text=" Total Saldo de Caixa          ".upper(), anchor=NW, font=("Verdana 11"), bg=cor05, fg=cor02)
+    total_renda.place(x=309, y=190)
+    terc_valor = Label(frame_esquerdo, text="R$ {:,.2f}".format(valor[2]), anchor=NW, font=("Arial 17"), bg=cor05, fg=cor12)
+    terc_valor.place(x=309, y=220)
 
 
 porcentagem()
 grafico_barra()
+resumos()
 
 janela.mainloop()
