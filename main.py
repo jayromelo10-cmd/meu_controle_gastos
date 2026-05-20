@@ -69,7 +69,7 @@ App_logo.place(x=0, y=0)
 
 # criando espaço da porcentágem-----------------------------------------------------------
 def porcentagem():
-    nome_01 = Label(frame_esquerdo, text="Porcentatagem da Receita de gastos", height=1, anchor=NW, font=("verdana 12"), bg=cor06, fg=cor04)
+    nome_01 = Label(frame_esquerdo, text="Porcentatagem da Receita de gastos", height=1, anchor=NW, font=("verdana 12"), bg=cor05, fg=cor04)
     nome_01.place(x=7, y=5)
 
     style = ttk.Style()
@@ -192,4 +192,63 @@ grafico_barra()
 resumos()
 grafico_pizza()
 
+
+# CRIANDO FRAMES DENTRO DO FRAME BAIXO---------------------------------------------------------------
+frame_renda = Frame(frame_baixo, width=300, height=250, bg=cor05, relief="flat")
+frame_renda.grid(row=0, column=0)
+
+frame_operacoes = Frame(frame_baixo, width=220, height=250, bg=cor05, relief="flat")
+frame_operacoes.grid(row=0, column=1, padx=5)
+
+frame_config = Frame(frame_baixo, width=300, height=250, bg=cor05, relief="flat")
+frame_config.grid(row=0, column=3, padx=5)
+
+
+# Tabela renda mensal----------------------------------------------------------------------
+App_tabela = Label(frame_esquerdo, text="Tabela Receitas e Despesas", anchor=NW, font=("verdana 12"), bg=cor05, fg=cor04,)
+App_tabela.place(x=5, y=309)
+
+# Função ára mostrar_renda
+def mostrar_renda():
+
+    # criando cabeçalho da tabela
+    tabela_head = ['#Id','Categoria','Data','Quantia']
+
+    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]  # cada lista terá 4 valores
+    
+    global tree    # função para barra de rolagem
+
+    tree = ttk.Treeview(frame_renda, selectmode="extended",columns=tabela_head, show="headings")
+    #vertical scrollbar
+    vsb = ttk.Scrollbar(frame_renda, orient="vertical", command=tree.yview)
+    #horizontal scrollbar
+    hsb = ttk.Scrollbar(frame_renda, orient="horizontal", command=tree.xview)
+
+    tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    # para posicionar a tabela
+    tree.grid(column=0, row=0, sticky='nsew')
+    vsb.grid(column=1, row=0, sticky='ns')
+    hsb.grid(column=0, row=1, sticky='ew')
+
+    # para centralizar a tabela
+    hd=["center","center","center", "center"]
+    h=[30,100,100,100]   # são para as largulas da tabela
+    n=0
+
+    for col in tabela_head:
+        tree.heading(col, text=col.title(), anchor=CENTER)
+        #adjust the column's width to the header string
+        tree.column(col, width=h[n],anchor=hd[n])
+        
+        n+=1
+
+    for item in lista_itens:
+        tree.insert('', 'end', values=item)
+
+
+
+
+
+mostrar_renda()
 janela.mainloop()
