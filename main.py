@@ -13,6 +13,11 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
+#importando numpy
+import numpy as np
+
+
+
 # Cores da interface
 cor01 = "#fc690f" # laranja
 cor02 = "#4891DA" # azul cinza
@@ -44,9 +49,11 @@ frame_em_cima.grid(row=0, column=0)
 frame_esquerdo = Frame(janela, width=1043, height=361, bg=cor05, pady=20, relief="raised")
 frame_esquerdo.grid(row=1, column=0, pady=1, padx=0, sticky=NSEW)
 
-frame_direito = Frame(janela, width=1043, height=300, bg=cor05, relief="flat")
-frame_direito.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
+frame_baixo = Frame(janela, width=1043, height=300, bg=cor05, relief="flat")
+frame_baixo.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
 
+frame_grafico = Frame(frame_esquerdo, width=580, height=250, bg=cor05)
+frame_grafico.place(x=415, y=5)
 
 # trabalhando no frame de cima------------------------------------------------------------------------
 
@@ -149,8 +156,40 @@ def resumos():
     terc_valor.place(x=309, y=220)
 
 
+# FUNÇÃO GRÁFICO PYTHON
+
+def grafico_pizza():
+    
+# faça figura e atribua objetos de eixo
+    figura = plt.Figure(figsize=(5, 3), dpi=90)
+    ax = figura.add_subplot(111)
+
+    lista_valores = [345,225,534]
+    lista_categorias = ['Renda', 'Despesa', 'Saldo']
+    cores = [cor03, cor07, cor08]
+
+# only "explode" the 2nd slice (i.e. 'Hogs')
+
+    explode = []
+    for i in lista_categorias:
+        explode.append(0.05)
+
+    ax.pie(lista_valores, explode=explode, wedgeprops=dict(width=0.2), autopct='%1.1f%%', colors=cores,shadow=True, startangle=90)
+    ax.legend(lista_categorias, loc="center right", bbox_to_anchor=(1.55, 0.50))
+
+    canva_categoria = FigureCanvasTkAgg(figura, frame_grafico)
+    canva_categoria.get_tk_widget().grid(row=0, column=0)
+
+
+
+
+
+
+
+    #plt.show()
 porcentagem()
 grafico_barra()
 resumos()
+grafico_pizza()
 
 janela.mainloop()
