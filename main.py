@@ -16,6 +16,10 @@ from matplotlib.figure import Figure
 #importando numpy
 import numpy as np
 
+# no terminal: pip install tkcalendar -- para instalar a biblioteca de calendário
+from tkcalendar import Calendar, DateEntry
+from datetime import date
+
 
 
 # Cores da interface
@@ -238,7 +242,7 @@ def mostrar_renda():
 
     for col in tabela_head:
         tree.heading(col, text=col.title(), anchor=CENTER)
-        #adjust the column's width to the header string
+        # ajustar as larguras e colunas do campo de texto
         tree.column(col, width=h[n],anchor=hd[n])
         
         n+=1
@@ -246,9 +250,34 @@ def mostrar_renda():
     for item in lista_itens:
         tree.insert('', 'end', values=item)
 
+# configurações Despesas
+informacao_01 = Label(frame_operacoes, text="Insira Novas Despesas", height=1, anchor=NW, font="Verdana 10 bold", bg=cor05, fg=cor04)
+informacao_01.place(x=10, y=10)
+
+# categoria
+categorias = Label(frame_operacoes, text="Categoria", height=1, anchor=NW, font="Ivy 10", bg=cor05, fg=cor04)
+categorias.place(x=10, y=40)
+
+# pegando categorias
+sub_categoria = ["Viagem", "Gasolina"]
+categoria = []
+
+for i in sub_categoria:
+    categoria.append(i[1])
+
+combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=10, font="Ivy 10")
+combo_categoria_despesas["values"] = (categoria)
+combo_categoria_despesas.place(x=110, y=41)
+
+# Despesas------------------------------------------------------------------------------
+cal_despesas = Label(frame_operacoes, text="Data", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
+cal_despesas.place(x=10, y=70)
+
+ecal_despesas = DateEntry(frame_operacoes, width=12, background="darkblue", foreground="white", borderwidth=2, year=2022)
+ecal_despesas.place(x=110, y=71)
 
 
 
 
-mostrar_renda()
+mostrar_renda() 
 janela.mainloop()
