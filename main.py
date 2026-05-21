@@ -272,9 +272,28 @@ combo_categoria_despesas.place(x=110, y=41)
 # Despesas------------------------------------------------------------------------------
 cal_despesas = Label(frame_operacoes, text="Data", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
 cal_despesas.place(x=10, y=70)
-
 ecal_despesas = DateEntry(frame_operacoes, width=12, background="darkblue", foreground="white", borderwidth=2, year=2022)
 ecal_despesas.place(x=110, y=71)
+
+
+# Valor------------------------------------------------------------------------------
+valor_despesas = Label(frame_operacoes, text="Quantia Total", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
+valor_despesas.place(x=10, y=100)
+
+evalor_despesas = Label(frame_operacoes, width=14, justify="left", relief="solid")
+evalor_despesas.place(x=110, y=101)
+
+
+# Botão inserir
+#img_add_despesas = Image.open("log.jpg")
+#img_add_despesas = app_img.resize((55,45))
+#img_add_despesas = ImageTk.PhotoImage(img_add_despesas) # praparada a imagem para ser usada
+
+# app logo = rôtulo(frame cima, igm dentro frame, texto"Meu controle de gastos", larg=900, conp p/esquerda, padx5, stilo=raised,                                     borda=cor04, cor-letra=cor09)
+#App_logo = Label(frame_em_cima, image=app_img, text="Meu Controle de Gastos", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=("verdana 20 bold"), bg=cor02, fg=cor04,)
+#App_logo.place(x=0, y=0)
+
+
 
 
 
