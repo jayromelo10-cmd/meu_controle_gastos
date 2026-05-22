@@ -2,6 +2,8 @@
 from tkinter import *
 from tkinter import Tk, ttk
 
+from tkinter import Button
+
 # importando pillow
 from PIL import Image, ImageTk
 
@@ -46,7 +48,7 @@ janela.resizable(width=FALSE, height=False)
 style = ttk.Style(janela)
 style.theme_use("clam")
 
-# criando frames para diversão da tela
+# criando frames para divisão da tela
 frame_em_cima = Frame(janela, width=1043, height=50, bg=cor11, relief="flat")
 frame_em_cima.grid(row=0, column=0)
 
@@ -63,7 +65,7 @@ frame_grafico.place(x=415, y=5)
 
 # acessando a imagem
 app_img = Image.open("log.jpg")
-app_img = app_img.resize((55,45))
+app_img = app_img.resize((55,35))
 app_img = ImageTk.PhotoImage(app_img) # praparada a imagem para ser usada
 
 # app logo = rôtulo(frame cima, igm dentro frame, texto"Meu controle de gastos", larg=900, conp p/esquerda, padx5, stilo=raised,                                     borda=cor04, cor-letra=cor09)
@@ -215,6 +217,7 @@ App_tabela.place(x=5, y=309)
 # Função ára mostrar_renda
 def mostrar_renda():
 
+    
     # criando cabeçalho da tabela
     tabela_head = ['#Id','Categoria','Data','Quantia']
 
@@ -250,7 +253,7 @@ def mostrar_renda():
     for item in lista_itens:
         tree.insert('', 'end', values=item)
 
-# configurações Despesas
+# configurações Despesas------------------------------------------------------
 informacao_01 = Label(frame_operacoes, text="Insira Novas Despesas", height=1, anchor=NW, font="Verdana 10 bold", bg=cor05, fg=cor04)
 informacao_01.place(x=10, y=10)
 
@@ -279,20 +282,69 @@ ecal_despesas.place(x=110, y=71)
 # Valor------------------------------------------------------------------------------
 valor_despesas = Label(frame_operacoes, text="Quantia Total", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
 valor_despesas.place(x=10, y=100)
-
 evalor_despesas = Label(frame_operacoes, width=14, justify="left", relief="solid")
 evalor_despesas.place(x=110, y=101)
 
 
 # Botão inserir
-#img_add_despesas = Image.open("log.jpg")
-#img_add_despesas = app_img.resize((55,45))
-#img_add_despesas = ImageTk.PhotoImage(img_add_despesas) # praparada a imagem para ser usada
+img_add_despesas = Image.open("adicionar.png")
+img_add_despesas = img_add_despesas.resize((17,17))
+img_add_despesas = ImageTk.PhotoImage(img_add_despesas) # praparada a imagem para ser usada
+botao_inserir_desp = Button(frame_operacoes, image=img_add_despesas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
+botao_inserir_desp.place(x=110, y=131)
 
-# app logo = rôtulo(frame cima, igm dentro frame, texto"Meu controle de gastos", larg=900, conp p/esquerda, padx5, stilo=raised,                                     borda=cor04, cor-letra=cor09)
-#App_logo = Label(frame_em_cima, image=app_img, text="Meu Controle de Gastos", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=("verdana 20 bold"), bg=cor02, fg=cor04,)
-#App_logo.place(x=0, y=0)
 
+# Botão Excluir
+excluir_categ = Label(frame_operacoes, text="Excluir Ação", height=1, anchor=NW, font=("Ivy 10 bold"), bg=cor05, fg=cor04)
+excluir_categ.place(x=10, y=190)
+
+img_deletar_despesas = Image.open("delete.png")
+img_deletar_despesas = img_deletar_despesas.resize((17,17))
+img_deletar_despesas = ImageTk.PhotoImage(img_deletar_despesas) # praparada a imagem para ser usada
+botao_deletar_desp = Button(frame_operacoes, image=img_deletar_despesas, text="Deletar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
+botao_deletar_desp.place(x=110, y=190)
+
+
+# configurações Receitas----------------------------------------------------------
+informacao_01 = Label(frame_config, text="Insira Novas Receitas", height=1, anchor=NW, font="Verdana 10 bold", bg=cor05, fg=cor04)
+informacao_01.place(x=10, y=10)
+
+# Calendario------------------------------------------------------------------------------
+cal_receitas = Label(frame_config, text="Data", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
+cal_receitas.place(x=10, y=40)
+ecal_receitas = DateEntry(frame_config, width=12, background="darkblue", foreground="white", borderwidth=2, year=2022)
+ecal_receitas.place(x=110, y=41)
+
+
+# Valor receitas------------------------------------------------------------------------------
+valor_receitas = Label(frame_config, text="Quantia Total", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
+valor_receitas.place(x=10, y=70)
+evalor_receitas = Label(frame_config, width=14, justify="left", relief="solid")
+evalor_receitas.place(x=110, y=70)
+
+
+# Botão inserir receitas----------------------------------------------------------
+img_add_receitas = Image.open("adicionar.png")
+img_add_receitas = img_add_receitas.resize((17,17))
+img_add_receitas = ImageTk.PhotoImage(img_add_receitas) # praparada a imagem para ser usada
+botao_inserir_receitas = Button(frame_config, image=img_add_receitas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
+botao_inserir_receitas.place(x=110, y=100)
+
+
+# Operações nova categoria----------------------------------------------------------
+informacao_01 = Label(frame_config, text="Categoria", height=1, anchor=NW, font="Ivy 10 bold", bg=cor05, fg=cor04)
+informacao_01.place(x=10, y=160)
+
+ecategoria = Label(frame_config, width=14, justify="left", relief="solid")
+ecategoria.place(x=110, y=160)
+
+
+# Botão inserir categoria----------------------------------------------------------
+img_add_categoria = Image.open("adicionar.png")
+img_add_categoria = img_add_categoria.resize((17,17))
+img_add_categoria = ImageTk.PhotoImage(img_add_categoria) # praparada a imagem para ser usada
+botao_inserir_categoria = Button(frame_config, image=img_add_categoria, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
+botao_inserir_categoria.place(x=110, y=190)
 
 
 
