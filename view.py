@@ -1,10 +1,23 @@
 # importar SQLite
 import sqlite3 as lite
+import sqlite3
 
 # FUNÇÕES PARA INSERÇÕES------------------------------------------------------
 
 # criando conexão
 conec = lite.connect("dados.db")
+conec = sqlite3.connect('dados.db')
+cur = conec.cursor()
+
+cur.execute('''
+    CREATE TABLE IF NOT EXISTS Receitas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        categoria TEXT,
+        data TEXT,
+        valor REAL
+    )
+''')
+conec.commit()
 
 #  Inserir cateoria
 def inserir_categoria(i):

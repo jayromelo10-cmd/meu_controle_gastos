@@ -127,7 +127,7 @@ def inserir_categoria_2():
 # função inserir receitas
 def inserir_receitas02():
     nome = "Receita"
-    data = cal_receitas.get()
+    data = ecal_receitas.get()
     quantia = evalor_receitas.get()
 
     lista_inserir = [nome, data, quantia]
@@ -147,6 +147,7 @@ def inserir_receitas02():
 
 
     # atualizando dados
+    inserir_gastos_ui()
     mostrar_renda()
     porcentagem()
     grafico_barra()
@@ -196,6 +197,7 @@ def grafico_barra():
                 str("{:,.0f}".format(lista_valores[c])), fontsize=17, fontstyle='italic',  verticalalignment='bottom',color='dimgrey')
         c += 1
 
+    ax.set_xticks(range(len(lista_categorias)))
     ax.set_xticklabels(lista_categorias,fontsize=16)
 
     ax.patch.set_facecolor('#ffffff')

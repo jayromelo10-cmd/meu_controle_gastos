@@ -21,3 +21,7 @@ with conec:
     cur = conec.cursor()
     cur.execute("CREATE TABLE Gastos(id INTEGER PRIMARY KEY AUTOINCREMENT, categoria TEXT, retirado_em DATE, valor DECIMAL)")
 
+
+conec.commit()
+conec.close()
+print("Tabelas criadas com sucesso!")
