@@ -1,6 +1,7 @@
 # criando interface main = main siguinifica principal.
 from tkinter import *
 from tkinter import Tk, ttk
+from tkinter import messagebox
 
 from tkinter import Button
 
@@ -22,6 +23,9 @@ import numpy as np
 from tkcalendar import Calendar, DateEntry
 from datetime import date
 
+# Importando funções da view
+from view import inserir_categoria, inserir_gastos, inserir_receita
+from view import ver_categoria
 
 
 # Cores da interface
@@ -71,6 +75,83 @@ app_img = ImageTk.PhotoImage(app_img) # praparada a imagem para ser usada
 # app logo = rôtulo(frame cima, igm dentro frame, texto"Meu controle de gastos", larg=900, conp p/esquerda, padx5, stilo=raised,                                     borda=cor04, cor-letra=cor09)
 App_logo = Label(frame_em_cima, image=app_img, text="Meu Controle de Gastos", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=("verdana 20 bold"), bg=cor02, fg=cor04,)
 App_logo.place(x=0, y=0)
+
+# Definindo tree como global
+global tree
+
+
+# função inserir gastos
+def inserir_gastos_ui():
+
+    categoria = ecategoria.get()
+    data = data.get()
+    quantia = quantia.get()
+
+    if categoria == "" or data == "" or quantia == "":
+        messagebox.showerror("Erro", "Preencha todos os campos")
+        return
+
+    lista = [categoria, data, quantia]
+    inserir_gastos(lista)
+
+    messagebox.showinfo("Sucesso", "Dados salvos!")
+
+
+# Função inserir categoria
+def inserir_categoria_2():
+    nome = ecategoria.get()
+    lista_inserir = [nome]
+    
+    for i in lista_inserir:
+        if i== "":
+            messagebox.showerror("Erro", "Preencha todos os campos")
+            return
+        
+        # passando para a função inserir gastos presente na view
+        inserir_categoria(lista_inserir)
+        messagebox.showinfo("Sucesso", "os dados foram adicionados com sucesso!")
+
+        ecategoria.delete(0, "end")
+
+        # Pegando os valores da categoria 
+        categorias = ver_categoria()
+        categoria = []
+
+        for i in categorias:
+            categoria.append(i[1])
+
+        # atualizar a lista de categorias
+        combo_categoria_despesas["values"] = (categoria)
+
+
+# função inserir receitas
+def inserir_receitas02():
+    nome = "Receita"
+    data = cal_receitas.get()
+    quantia = evalor_receitas.get()
+
+    lista_inserir = [nome, data, quantia]
+
+    for i in lista_inserir:
+        if i== "":
+            messagebox.showerror("Erro", "Preencha todos os campos")
+            return
+        
+
+    # chamando a função inserir receitas  presente na view
+    inserir_receita(lista_inserir)
+    messagebox.showinfo("Sucesso", "os dados foram adicionados com sucesso!")
+
+    ecal_receitas.delete(0, "end")
+    evalor_receitas.delete(0, "end")
+
+
+    # atualizando dados
+    mostrar_renda()
+    porcentagem()
+    grafico_barra()
+    resumos()
+    grafico_pizza()
 
 
 # criando espaço da porcentágem-----------------------------------------------------------
@@ -163,7 +244,6 @@ def resumos():
 
 
 # FUNÇÃO GRÁFICO PYTHON
-
 def grafico_pizza():
     
 # faça figura e atribua objetos de eixo
@@ -175,7 +255,6 @@ def grafico_pizza():
     cores = [cor03, cor07, cor08]
 
 # only "explode" the 2nd slice (i.e. 'Hogs')
-
     explode = []
     for i in lista_categorias:
         explode.append(0.05)
@@ -185,11 +264,6 @@ def grafico_pizza():
 
     canva_categoria = FigureCanvasTkAgg(figura, frame_grafico)
     canva_categoria.get_tk_widget().grid(row=0, column=0)
-
-
-
-
-
 
 
     #plt.show()
@@ -217,7 +291,6 @@ App_tabela.place(x=5, y=309)
 # Função ára mostrar_renda
 def mostrar_renda():
 
-    
     # criando cabeçalho da tabela
     tabela_head = ['#Id','Categoria','Data','Quantia']
 
@@ -282,7 +355,7 @@ ecal_despesas.place(x=110, y=71)
 # Valor------------------------------------------------------------------------------
 valor_despesas = Label(frame_operacoes, text="Quantia Total", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
 valor_despesas.place(x=10, y=100)
-evalor_despesas = Label(frame_operacoes, width=14, justify="left", relief="solid")
+evalor_despesas = Entry(frame_operacoes, width=14, justify="left", relief="solid")
 evalor_despesas.place(x=110, y=101)
 
 
@@ -319,7 +392,7 @@ ecal_receitas.place(x=110, y=41)
 # Valor receitas------------------------------------------------------------------------------
 valor_receitas = Label(frame_config, text="Quantia Total", height=1,    anchor=NW, font=("Ivy 10"), bg=cor05, fg=cor04)
 valor_receitas.place(x=10, y=70)
-evalor_receitas = Label(frame_config, width=14, justify="left", relief="solid")
+evalor_receitas = Entry(frame_config, width=14, justify="left", relief="solid")
 evalor_receitas.place(x=110, y=70)
 
 
@@ -327,7 +400,7 @@ evalor_receitas.place(x=110, y=70)
 img_add_receitas = Image.open("adicionar.png")
 img_add_receitas = img_add_receitas.resize((17,17))
 img_add_receitas = ImageTk.PhotoImage(img_add_receitas) # praparada a imagem para ser usada
-botao_inserir_receitas = Button(frame_config, image=img_add_receitas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
+botao_inserir_receitas = Button(frame_config, command=inserir_receitas02, image=img_add_receitas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
 botao_inserir_receitas.place(x=110, y=100)
 
 
@@ -335,7 +408,7 @@ botao_inserir_receitas.place(x=110, y=100)
 informacao_01 = Label(frame_config, text="Categoria", height=1, anchor=NW, font="Ivy 10 bold", bg=cor05, fg=cor04)
 informacao_01.place(x=10, y=160)
 
-ecategoria = Label(frame_config, width=14, justify="left", relief="solid")
+ecategoria = Entry(frame_config, width=14, justify="left", relief="solid")
 ecategoria.place(x=110, y=160)
 
 
@@ -343,7 +416,7 @@ ecategoria.place(x=110, y=160)
 img_add_categoria = Image.open("adicionar.png")
 img_add_categoria = img_add_categoria.resize((17,17))
 img_add_categoria = ImageTk.PhotoImage(img_add_categoria) # praparada a imagem para ser usada
-botao_inserir_categoria = Button(frame_config, image=img_add_categoria, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
+botao_inserir_categoria = Button(frame_config, command=inserir_categoria_2, image=img_add_categoria, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
 botao_inserir_categoria.place(x=110, y=190)
 
 
