@@ -24,7 +24,7 @@ from tkcalendar import Calendar, DateEntry
 from datetime import date
 
 # Importando funções da view
-from view import inserir_categoria, inserir_gastos, inserir_receita
+from view import inserir_categoria, inserir_gastos, inserir_receita, tabela
 from view import ver_categoria
 
 
@@ -126,6 +126,7 @@ def inserir_categoria_2():
 
 # função inserir receitas
 def inserir_receitas02():
+
     nome = "Receita"
     data = ecal_receitas.get()
     quantia = evalor_receitas.get()
@@ -146,8 +147,32 @@ def inserir_receitas02():
     evalor_receitas.delete(0, "end")
 
 
+    # função inserir receitas
+def inserir_receitas02():
+    nome = combo_categoria_despesas.get()
+    data = ecal_despesas.get()
+    quantia = evalor_despesas.get()
+
+    lista_inserir = [nome, data, quantia]
+
+    for i in lista_inserir:
+        if i== "":
+            messagebox.showerror("Erro", "Preencha todos os campos")
+            return
+        
+
+    # chamando a função inserir despesas  presente na view
+    inserir_gastos(lista_inserir)
+    messagebox.showinfo("Sucesso", "os dados foram adicionados com sucesso!")
+
+    combo_categoria_despesas.delete(0,"end")
+    ecal_despesas.delete(0, "end")
+    evalor_despesas.delete(0, "end")
+
+
     # atualizando dados
-    inserir_gastos_ui()
+    inserir_receitas02()
+    inserir_gastos()
     mostrar_renda()
     porcentagem()
     grafico_barra()
@@ -296,7 +321,7 @@ def mostrar_renda():
     # criando cabeçalho da tabela
     tabela_head = ['#Id','Categoria','Data','Quantia']
 
-    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]  # cada lista terá 4 valores
+    lista_itens = tabela()  # cada lista terá 4 valores
     
     global tree    # função para barra de rolagem
 
@@ -337,7 +362,7 @@ categorias = Label(frame_operacoes, text="Categoria", height=1, anchor=NW, font=
 categorias.place(x=10, y=40)
 
 # pegando categorias
-sub_categoria = ["Viagem", "Gasolina"]
+sub_categoria = ver_categoria()
 categoria = []
 
 for i in sub_categoria:
@@ -365,7 +390,7 @@ evalor_despesas.place(x=110, y=101)
 img_add_despesas = Image.open("adicionar.png")
 img_add_despesas = img_add_despesas.resize((17,17))
 img_add_despesas = ImageTk.PhotoImage(img_add_despesas) # praparada a imagem para ser usada
-botao_inserir_desp = Button(frame_operacoes, image=img_add_despesas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
+botao_inserir_desp = Button(frame_operacoes, command=inserir_receitas02, image=img_add_despesas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=("Ivy 7 bold"), bg=cor05, fg=cor04, overrelief=RIDGE)
 botao_inserir_desp.place(x=110, y=131)
 
 

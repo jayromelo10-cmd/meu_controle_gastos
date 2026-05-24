@@ -19,6 +19,37 @@ cur.execute('''
 ''')
 conec.commit()
 
+# função para dados de tabela
+def tabela():
+    gastos = ver_gastos()
+    receitas = ver_receitas()
+
+    tabela_lista = []
+
+    for i in gastos:
+        tabela_lista.append(i)
+
+    return tabela_lista
+
+
+# função para dados do gráfico de barra
+def barra_valores():
+
+    lista_itens = []
+
+    with conec:
+        cur = conec.cursor()
+        cur.execute("SELECT * FROM barra_valores")
+
+        linha = cur.fetchall()
+
+        for i in linha:
+            lista_itens.append(i)
+
+    return lista_itens
+
+
+
 #  Inserir cateoria
 def inserir_categoria(i):
     with conec:
